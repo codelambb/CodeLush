@@ -164,26 +164,6 @@ async def kill(ctx, user):
 	if k == 5:
 		await ctx.send(f'{user} is sucked into Minecraft. {user}, being a noob at the so called Real-Life Minecraft faces the Game Over screen.')
 
-class Welcome(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-
-        @commands.Cog.listener()
-    async def on_member_join(self, member):
-        channel = self.bot.get_channel(id = 783631786575659028)
-
-        if member.bot == True:
-            botrole = discord.utils.get(member.guild.roles, name = 'Members Bots',)
-            await member.add_roles(botrole)
-
-        else:
-            verifiedrole = discord.utils.get(member.guild.roles, name = 'Verified')
-            await member.add_roles(verifiedrole)
-
-            em=discord.Embed(title=f"Hi{member.name}, Welcome to CodeLush.", description="Thanks for joining this server, we are {len(list(member.guild.members))} members now!")
-
-            await ctx.send(embed=em)
-            await member.send(embed=em)
 
 #announcemnt command
 @client.command(aliases=["ann"])
@@ -191,7 +171,7 @@ class Welcome(commands.Cog):
 async def announce(ctx, message):
 	anno = discord.Embed(tittle="ann", color=ctx.author.color)
 	anno.add_field(name="Announcement", value=message)
-  anno.set_footer(text=f"Announcement by {ctx.author.name}")
+	anno.set_footer(text=f"Announcement by {ctx.author.name}")
 	await ctx.send(embed=anno)
 	await ctx.send('@everyone', delete_after=3) 
 
