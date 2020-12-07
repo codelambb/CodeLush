@@ -125,7 +125,7 @@ async def mute(ctx, member: discord.Member,*, reason=None):
 
     await member.add_roles(role)
     await ctx.send(f"{member.mention} was muted for {reason}")
-    await member.send(f"You were muted in **{ctx.guild}** for {reason}")
+    await member.send(f"You were muted in the server CodeLush for {reason}")
 
 
 #unmute command
@@ -134,8 +134,8 @@ async def mute(ctx, member: discord.Member,*, reason=None):
 async def unmute(ctx, member: discord.Member):
 	mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
 	await member.remove_roles(mutedRole)
-	await ctx.send(f'Unmuted {ctx.members.mention}')
-	await member.send(f'You have been unmuted from the server {ctx.guild.name}')
+	await ctx.send(f'Unmuted {ctx.member.mention}')
+	await member.send(f'You have been unmuted from the server CodeLush')
 
 #meme command
 @client.command()
