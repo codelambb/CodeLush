@@ -110,8 +110,8 @@ async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
 
 #mute command
 @client.command()
-@commands.has_permissions(kick_members=True, manage_messages=True, administrator=True, manage_roles=True)
-async def mute(ctx, member: discord.Member, mute_time : int, *, reason=None):
+@commands.has_permissions(administrator=True, manage_roles=True)
+async def mute(ctx, member: discord.Member,*, reason=None):
     if not member:
         await ctx.send("Who do you want me to mute?")
         return
@@ -127,10 +127,6 @@ async def mute(ctx, member: discord.Member, mute_time : int, *, reason=None):
     await ctx.send(f"{member.mention} was muted for {reason}")
     await member.send(f"You were muted in **{ctx.guild}** for {reason}")
 
-    await asyncio.sleep(mute_time)
-    await member.remove_roles(role)
-    await ctx.send(f"{member.mention} was unmuted")
-    await member.send(f"You were unmuted in **{ctx.guild}**")
 
 #unmute command
 @client.command()
