@@ -174,7 +174,7 @@ async def announce(ctx,*,message):
 	anno = discord.Embed(tittle="ann", color=ctx.author.color)
 	anno.add_field(name="Announcement", value=message)
 	anno.set_footer(text=f"Announcement by {ctx.author.name}")
-	await ctx.purge(limit=1)
+	await ctx.channel.purge(limit=1)
 	await ctx.send(embed=anno)
 	await ctx.send("@everyone", delete_after=3)
 
