@@ -72,9 +72,9 @@ async def _8ball(ctx, question):
 @client.command(aliases=['h'])
 async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=ctx.author.color)
-	helpEmbed.set_author(name="Help Menu:\nPrefix = '!'")
-	helpEmbed.add_field(name="Moderation Command Menu", value="```Type .modHelp to open that```", inline=True)
-	helpEmbed.add_field(name="Miscellaneous Command Menu", value="```Type .miscHelp to open that```", inline=True)
+	helpEmbed.set_author(name="Help Menu:\nPrefix = '>'")
+	helpEmbed.add_field(name="Moderation Command Menu", value="```Type >modHelp to open that```", inline=True)
+	helpEmbed.add_field(name="Miscellaneous Command Menu", value="```Type >miscHelp to open that```", inline=True)
 
 	await ctx.send(embed=helpEmbed)
 
@@ -90,7 +90,7 @@ async def modHelp(ctx):
 @client.command()
 async def miscHelp(ctx):
 	misc = discord.Embed(tittle="misc", color=ctx.author.color)
-	misc.add_field(name="Miscellaneous Command Menu", value="```>ping : Tells the bot's latency```\n```>8ball (question) : Tells the answer of the asked question in a random yes/no answer```\n```>meme : Send a hot meme from reddit```\n```")
+	misc.add_field(name="Miscellaneous Command Menu", value="```>ping : Tells the bot's latency```\n```>8ball (question) : Tells the answer of the asked question in a random yes/no answer```\n```>meme : Send a hot meme from reddit```\n```>kill (user) : Kills the specified user```\n")
 	misc.set_footer(text="More miscellaneous commands will be added soon")
 	await ctx.send(embed=misc)
 
