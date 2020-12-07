@@ -84,7 +84,7 @@ async def modHelp(ctx):
 	mod = discord.Embed(tittle="mod", color=ctx.author.color)
 	mod.add_field(name="Moderation Command Menu", value="```>clear (ammount) : Deletes the specified ammount of messages from the channel```\n```>ban (user) (reasion) : Bans the specified user from the server```\n```>kick (user) (reason) : Kicks the specified user from the server```\n```>mute (user) (reason) : Mutes the specified user from the server```\n```>unmute (user) : Unmutes the specified user```\n```>announce (message) : Sends a announcemnt message in a embed style```\n")
 	mod.set_footer(text="More moderation commands will be added soon")
-	await ctx.send(embed=modHelp)
+	await ctx.send(embed=mod)
 
 #miscHelp
 @client.command()
