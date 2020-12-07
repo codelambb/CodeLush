@@ -152,8 +152,8 @@ async def meme(ctx):
 #kill command
 @client.command()
 async def kill(ctx, user):
-  k = random.randint(0,5)
-  if k == 0:
+	k = random.randint(0,5)
+	if k == 0:
 		await ctx.send(f'You challenged {user} to a fist fight to the death. You won.')
 	if k == 2:
 		await ctx.send(f'{user} had a mid air collision with nyan-cat')
