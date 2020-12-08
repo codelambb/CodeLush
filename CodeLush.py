@@ -360,4 +360,23 @@ async def define_error(ctx, error):
         em=discord.Embed(title="Error", description="Either you have used the command incorrecly or wikipedia cant find the definitation of that", color=discord.Color.red())
         await ctx.send(embed=em, delete_after=5)
 
+#verify command
+@client.command()
+async def verify(ctx):
+  verifiedrole = discord.utils.get(ctx.guild.roles, name='Verified')
+  await ctx.author.add_roles(verifiedrole)
+  verify = discord.Embed(title="Verification",description="Congrats! You have been verified!", color=ctx.author.color)
+  verify.set_image(url="https://i.pinimg.com/originals/b9/7d/c2/b97dc288d71e7938c1ce8b7faacdc9ac.gif")
+  await ctx.send(embed=verify)
+  await ctx.author.send(embed=verify)
+
+@client.command()
+async def poll(ctx, *, message):
+  em=discord.Embed(title="Poll", description=f"{message},color=ctx.author.color")
+  em.add_footer(text=ctx.author.name)
+  await ctx.send(ctx.get_channel('785726236273672233'),embed=em)
+  await message.add_reaction("✅")
+  await message.add_reaction("❎")
+
+
 client.run(os.environ['DISCORD_TOKEN'])
