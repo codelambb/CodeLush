@@ -17,9 +17,11 @@ client = commands.Bot(command_prefix=list(prefixes), intents=intents)
 
 client = commands.Bot(command_prefix=prefixes)
 
-status = ['Listening to >help', 'Make sure to read the rules!']
+status = ['Listening to -help', 'Make sure to read the rules!']
 
 client.remove_command("help")
+
+filter_words = ["fuck"]
 
 #ready
 @client.event
@@ -38,6 +40,16 @@ async def on_member_join(member):
   notrole=discord.utils.get(member.server.roles, name='Not Verified')
   await client.add_role(member, notrole)
 
+#swear stopper
+@client.event
+async def on_message(msg):
+  for word in filter_words:
+    if word in msg.content:
+      await msg.delete()
+      await msg.channel.send(f"Swearing is not allowed in this server")
+
+  await client.process_commands()
+
 #ping command
 @client.command()
 async def ping(ctx):
@@ -51,7 +63,6 @@ async def clear(ctx, ammount: int):
     await ctx.channel.purge(limit=ammount + 1)
     await ctx.send(f'I have deleted {ammount} of messages', delete_after=5)
     return
-
 
 #8ball command
 @client.command(aliases=['8ball'])
@@ -88,11 +99,11 @@ async def help(ctx):
     helpEmbed.set_author(name="Help Menu:\nPrefix = '>'")
     helpEmbed.add_field(
         name="Moderation Command Menu",
-        value="```Type >modHelp to open that```",
+        value="```Type -modHelp to open that```",
         inline=True)
     helpEmbed.add_field(
         name="Miscellaneous Command Menu",
-        value="```Type >miscHelp to open that```",
+        value="```Type -miscHelp to open that```",
         inline=True)
     helpEmbed.set_image(
       url="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/67401945-34fc-46b8-8e8f-1982847277d4/ddba22b-2fad9d00-1d3f-4ec8-a65d-199a09dfa4e1.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNjc0MDE5NDUtMzRmYy00NmI4LThlOGYtMTk4Mjg0NzI3N2Q0XC9kZGJhMjJiLTJmYWQ5ZDAwLTFkM2YtNGVjOC1hNjVkLTE5OWEwOWRmYTRlMS5naWYifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ._-whxwEBEaTLWUvSWL80KTGiwpoy9dSPzXSRhfTAzeM"
@@ -106,7 +117,7 @@ async def help(ctx):
 async def modHelp(ctx):
     mod = discord.Embed(tittle="mod", color=ctx.author.color)
     
-    mod.add_field(name="Moderation Command Menu", value="```>clear (ammount) : Deletes the specified ammount of messages from the channel```\n```>ban (user) (reasion) : Bans the specified user from the server```\n```>kick (user) (reason) : Kicks the specified user from the server```\n```>mute (user) (reason) : Mutes the specified user from the server```\n```>unmute (user) : Unmutes the specified user```\n```>announce (message) : Sends a announcemnt in sylish embed style```\n")
+    mod.add_field(name="Moderation Command Menu", value="```-clear (ammount) : Deletes the specified ammount of messages from the channel```\n```-ban (user) (reasion) : Bans the specified user from the server```\n```-kick (user) (reason) : Kicks the specified user from the server```\n```-mute (user) (reason) : Mutes the specified user from the server```\n```-unmute (user) : Unmutes the specified user```\n```-announce (message) : Sends a announcemnt in sylish embed style```\n")
     
     mod.set_footer(text="More moderation commands will be added soon")
     
@@ -118,7 +129,7 @@ async def modHelp(ctx):
 async def miscHelp(ctx):
     misc = discord.Embed(tittle="misc", color=ctx.author.color)
     
-    misc.add_field(name="Miscellaneous Command Menu", value="```>ping : Tells the bot's latency```\n```>8ball (question) : Tells the answer of the asked question in a random yes/no answer```\n```>meme : Send a hot meme from reddit```\n```>userinfo (user) : Send information about mentioned user```\n```>define (querry) : Sends a definition of your querry from wikipedia```\n")
+    misc.add_field(name="Miscellaneous Command Menu", value="```-ping : Tells the bot's latency```\n```-8ball (question) : Tells the answer of the asked question in a random yes/no answer```\n```-meme : Send a hot meme from reddit```\n```-userinfo (user) : Send information about mentioned user```\n```-define (querry) : Sends a definition of your querry from wikipedia```\n```-suggest (suggestion) : Sends a suggestion in the suggestion channel and it gets voted```\n")
     
     misc.set_footer(text="More miscellaneous commands will be added soon")
     
@@ -277,25 +288,29 @@ async def verify(ctx):
   verifiedrole = discord.utils.get(ctx.guild.roles, name='Verified')
   await ctx.author.add_roles(verifiedrole)
   verify = discord.Embed(title="Verification",description="Congrats! You have been verified!", color=ctx.author.color)
-  verify.set_image(url="https://i.pinimg.com/originals/b9/7d/c2/b97dc288d71e7938c1ce8b7faacdc9ac.gif")
   await ctx.send(embed=verify)
   await ctx.author.send(embed=verify)
   u = discord.utils.get(ctx.guild.roles, name='Not Verified')
   await ctx.author.remove_roles(u)
   wel = discord.Embed(title="Welcome Message", description=f"Welcome {ctx.author.name} to our server!")
-  wel.set_image(url='https://lh3.googleusercontent.com/proxy/K9VYJo1FV3p-5V5z_jzxBTYFZsvpgWH-ElkUwb0fIs9llGlM04OolU6nu4cO34Xitd1uH_plG4mSgG24IUFjgUq7x_8Z3B6UQF-9acp3jyMVklGYLw')
+  wel.set_image(url='https://i.pinimg.com/originals/b9/7d/c2/b97dc288d71e7938c1ce8b7faacdc9ac.gif')
   chl = client.get_channel(783298898194202665)
   e = await chl.send(embed=wel)
 
-#poll command
+#suggest command
 @client.command()
-async def poll(ctx, *, message):
-  em=discord.Embed(title="Poll", description=message,color=ctx.author.color)
-  em.set_footer(text=f"Poll by {ctx.author.name}")
+async def suggest(ctx, *, message):
+  em=discord.Embed(title="Suggestion", description=message,color=ctx.author.color)
+  em.set_footer(text=f"Suggestion by {ctx.author.name}")
   channel = client.get_channel(785726236273672233)
   message_ = await channel.send(embed=em)
   await message_.add_reaction("✅")
   await message_.add_reaction("❎")
+
+#youtube command
+@client.command()
+async def ytsearch(ctx,*,search):
+  await ctx.send(f"Results of searching {search}....\nLink -----> [Click Here!](https://www.youtube.com/results?search_query=test)")
 
 #all the errors
 
@@ -355,8 +370,8 @@ async def define_error(ctx, error):
         em=discord.Embed(title="Error", description="Either you have used the command incorrecly or wikipedia cant find the definitation of that", color=discord.Color.red())
         await ctx.send(embed=em, delete_after=5)
 
-#poll error
-@poll.error 
+#suggest error
+@suggest.error 
 async def poll_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         em=discord.Embed(title="Error", description="Please specify a poll message you want to use", color=discord.Color.red())
@@ -367,5 +382,12 @@ async def poll_error(ctx, error):
 async def verify_error(ctx, error):
       em=discord.Embed(title="Error", description="You are already verified!", color=discord.Color.red())
       await ctx.send(embed=em, delete_after=5)
+
+#youtube error
+@ytsearch.error
+async def ytsearch_error(ctx, error):
+  if isinstance(error, commands.MissingRequiredArgument):
+    em=discord.Embed(title="Error", description="Please specify a thing to search")
+    await ctx.send(embed=em, delete_after=5)
 
 client.run(os.environ['DISCORD_TOKEN'])
