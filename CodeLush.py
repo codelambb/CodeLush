@@ -13,9 +13,7 @@ import typing
 
 intents = discord.Intents.all()
 prefixes = ["-"]
-client = commands.Bot(command_prefix=list(prefixes), intents=intents)
-
-client = commands.Bot(command_prefix=prefixes)
+client = commands.Bot(command_prefix=prefixes, intents=intents)
 
 status = ['Listening to -help', 'Make sure to read the rules!']
 
