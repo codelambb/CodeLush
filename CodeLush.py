@@ -312,6 +312,11 @@ async def verify(ctx):
   verify.set_image(url="https://i.pinimg.com/originals/b9/7d/c2/b97dc288d71e7938c1ce8b7faacdc9ac.gif")
   await ctx.send(embed=verify)
   await ctx.author.send(embed=verify)
+  await ctx.author.remove_roles("Not Verified")
+  wel = discord.Embed(title="Welcome Message", description=f"Welcome {ctx.author.name} to our server!")
+  wel.set_image(url='https://lh3.googleusercontent.com/proxy/K9VYJo1FV3p-5V5z_jzxBTYFZsvpgWH-ElkUwb0fIs9llGlM04OolU6nu4cO34Xitd1uH_plG4mSgG24IUFjgUq7x_8Z3B6UQF-9acp3jyMVklGYLw')
+  chl = client.get_channel(785751343541125160)
+  await chl.send(embed=wel)
 
 #poll command
 @client.command()
@@ -319,7 +324,6 @@ async def poll(ctx, *, message):
   em=discord.Embed(title="Poll", description=message,color=ctx.author.color)
   em.set_footer(text=ctx.author.name)
   channel = client.get_channel(785726236273672233)
-  await channel.send(embed=em)
   message_ = await channel.send(embed=em)
   await message_.add_reaction("✅")
   await message_.add_reaction("❎")
@@ -391,9 +395,8 @@ async def poll_error(ctx, error):
 
 #verify error
 @verify.error 
-async def verify_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        em=discord.Embed(title="Error", description="You are already verified!", color=discord.Color.red())
-        await ctx.send(embed=em, delete_after=5)
+async def verify_error(ctx):
+      em=discord.Embed(title="Error", description="You are already verified!", color=discord.Color.red())
+      await ctx.send(embed=em, delete_after=5)
 
 client.run(os.environ['DISCORD_TOKEN'])
