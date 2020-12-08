@@ -35,8 +35,8 @@ async def change_status():
 
 @client.event
 async def on_member_join(member):
-  notverifyrole=discord.utils.get_role(name="Not Verified")
-  await member.add_role(notverifyrole)
+  notrole=discord.utils.get_role(name="Not Verified")
+  await member.add_role(notrole)
 
 #ping command
 @client.command()
@@ -189,6 +189,10 @@ async def mute(ctx, member: discord.Member, mute_time: int, *, reason=None):
     await ctx.send(f"{member.mention} was unmuted")
     await member.send(f"You were unmuted in **{ctx.guild}**")
 
+@client.event
+async def on_member_join(member): 
+    role = discord.utils.get(member.guild.roles, id='785746546150342666')
+    await member.add_roles(role)
 
 #unmute command
 @client.command()
