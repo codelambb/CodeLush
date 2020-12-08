@@ -302,6 +302,28 @@ async def userinfo(ctx, member: discord.Member):
 
   await ctx.send(embed=em)
 
+#verify command
+@client.command()
+@client.has_role("Not Verifed")
+async def verify(ctx):
+  verifiedrole = discord.utils.get(ctx.guild.roles, name='Verified')
+  await ctx.author.add_roles(verifiedrole)
+  verify = discord.Embed(title="Verification",description="Congrats! You have been verified!", color=ctx.author.color)
+  verify.set_image(url="https://i.pinimg.com/originals/b9/7d/c2/b97dc288d71e7938c1ce8b7faacdc9ac.gif")
+  await ctx.send(embed=verify)
+  await ctx.author.send(embed=verify)
+
+#poll command
+@client.command()
+async def poll(ctx, *, message):
+  em=discord.Embed(title="Poll", description=message,color=ctx.author.color)
+  em.set_footer(text=ctx.author.name)
+  channel = client.get_channel(785726236273672233)
+  await channel.send(embed=em)
+  message_ = await channel.send(embed=em)
+  await message_.add_reaction("✅")
+  await message_.add_reaction("❎")
+
 #all the errors
 
 #clear error
@@ -360,25 +382,18 @@ async def define_error(ctx, error):
         em=discord.Embed(title="Error", description="Either you have used the command incorrecly or wikipedia cant find the definitation of that", color=discord.Color.red())
         await ctx.send(embed=em, delete_after=5)
 
-#verify command
-@client.command()
-async def verify(ctx):
-  verifiedrole = discord.utils.get(ctx.guild.roles, name='Verified')
-  await ctx.author.add_roles(verifiedrole)
-  verify = discord.Embed(title="Verification",description="Congrats! You have been verified!", color=ctx.author.color)
-  verify.set_image(url="https://i.pinimg.com/originals/b9/7d/c2/b97dc288d71e7938c1ce8b7faacdc9ac.gif")
-  await ctx.send(embed=verify)
-  await ctx.author.send(embed=verify)
+#poll error
+@poll.error 
+async def poll_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        em=discord.Embed(title="Error", description="Please specify a poll message you want to use", color=discord.Color.red())
+        await ctx.send(embed=em, delete_after=5)
 
-@client.command()
-async def poll(ctx, *, message):
-  em=discord.Embed(title="Poll", description=message,color=ctx.author.color)
-  em.set_footer(text=ctx.author.name)
-  channel = client.get_channel(785726236273672233)
-  await channel.send(embed=em)
-  message_ = await channel.send(embed=em)
-  await message_.add_reaction("✅")
-  await message_.add_reaction("❎")
-
+#verify error
+@verify.error 
+async def verify_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        em=discord.Embed(title="Error", description="You are already verified!", color=discord.Color.red())
+        await ctx.send(embed=em, delete_after=5)
 
 client.run(os.environ['DISCORD_TOKEN'])
