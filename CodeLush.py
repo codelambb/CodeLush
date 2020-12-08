@@ -72,9 +72,9 @@ async def _8ball(ctx, question):
 @client.command(aliases=['h'])
 async def help(ctx):
 	helpEmbed = discord.Embed(tittle="Help Menu", color=ctx.author.color)
-	helpEmbed.set_author(name="Help Menu:\nPrefix = '>'")
-	helpEmbed.add_field(name="Moderation Command Menu", value="```Type >modHelp to open that```", inline=True)
-	helpEmbed.add_field(name="Miscellaneous Command Menu", value="```Type >miscHelp to open that```", inline=True)
+	helpEmbed.set_author(name="Help Menu:\nPrefix = '!'")
+	helpEmbed.add_field(name="Moderation Command Menu", value="```Type .modHelp to open that```", inline=True)
+	helpEmbed.add_field(name="Miscellaneous Command Menu", value="```Type .miscHelp to open that```", inline=True)
 
 	await ctx.send(embed=helpEmbed)
 
@@ -82,17 +82,15 @@ async def help(ctx):
 @client.command()
 async def modHelp(ctx):
 	mod = discord.Embed(tittle="mod", color=ctx.author.color)
-	mod.add_field(name="Moderation Command Menu", value="```>clear (ammount) : Deletes the specified ammount of messages from the channel```\n```>ban (user) (reasion) : Bans the specified user from the server```\n```>kick (user) (reason) : Kicks the specified user from the server```\n```>mute (user) (reason) : Mutes the specified user from the server```\n```>unmute (user) : Unmutes the specified user```\n```>announce (message) : Sends a announcemnt message in a embed style```\n")
+	mod.add_field(name="Moderation Command Menu", value="```!clear (ammount) : Deletes the specified ammount of messages from the channel```\n```!ban (user) (reasion) : Bans the specified user from the server```\n```!kick (user) (reason) : Kicks the specified user from the server```\n```mute (user) (reason) : Mutes the specified user from the server```\n```unmute (user) : Unmutes the specified user```\n")
 	mod.set_footer(text="More moderation commands will be added soon")
-	await ctx.send(embed=mod)
+	await ctx.send(embed=modHelp)
 
 #miscHelp
 @client.command()
 async def miscHelp(ctx):
 	misc = discord.Embed(tittle="misc", color=ctx.author.color)
-	misc.add_field(name="Miscellaneous Command Menu", value="```>ping : Tells the bot's latency```\n```>8ball (question) : Tells the answer of the asked question in a random yes/no answer```\n```>meme : Send a hot meme from reddit```\n```>kill (user) : Kills the specified user```\n")
-	misc.set_footer(text="More miscellaneous commands will be added soon")
-	await ctx.send(embed=misc)
+	misc.add_field(name="Miscellaneous Command Menu", value="```!ping : Tells the bot's latency```\n```!8ball (question) : Tells the answer of the asked question in a random yes/no answer```\n```!meme : Send a hot meme from reddit```\n```")
 
 #ban command
 @client.command(aliases=['b'])
@@ -110,8 +108,8 @@ async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
 
 #mute command
 @client.command()
-@commands.has_permissions(administrator=True, manage_roles=True)
-async def mute(ctx, member: discord.Member,*, reason=None):
+@commands.has_permissions(kick_members=True, manage_messages=True, administrator=True, manage_roles=True)
+async def mute(ctx, member: discord.Member, mute_time : int, *, reason=None):
     if not member:
         await ctx.send("Who do you want me to mute?")
         return
@@ -125,8 +123,12 @@ async def mute(ctx, member: discord.Member,*, reason=None):
 
     await member.add_roles(role)
     await ctx.send(f"{member.mention} was muted for {reason}")
-    await member.send(f"You were muted in the server CodeLush for {reason}")
+    await member.send(f"You were muted in **{ctx.guild}** for {reason}")
 
+    await asyncio.sleep(mute_time)
+    await member.remove_roles(role)
+    await ctx.send(f"{member.mention} was unmuted")
+    await member.send(f"You were unmuted in **{ctx.guild}**")
 
 #unmute command
 @client.command()
@@ -134,8 +136,8 @@ async def mute(ctx, member: discord.Member,*, reason=None):
 async def unmute(ctx, member: discord.Member):
 	mutedRole = discord.utils.get(ctx.guild.roles, name="Muted")
 	await member.remove_roles(mutedRole)
-	await ctx.send(f'Unmuted {ctx.member.mention}')
-	await member.send(f'You have been unmuted from the server CodeLush')
+	await ctx.send(f'Unmuted {ctx.members.mention}')
+	await member.send(f'You have been unmuted from the server {ctx.guild.name}')
 
 #meme command
 @client.command()
@@ -162,16 +164,47 @@ async def kill(ctx, user):
 	if k == 5:
 		await ctx.send(f'{user} is sucked into Minecraft. {user}, being a noob at the so called Real-Life Minecraft faces the Game Over screen.')
 
+#welcome commands
+class Welcome(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        channel = self.bot.get_channel(id = 783298898194202665)
+
+        if member.bot == True:
+            botrole = discord.utils.get(member.guild.roles, name = 'Members Bots',)
+            await member.add_roles(botrole)
+
+        else:
+            verifiedrole = discord.utils.get(member.guild.roles, name = 'Verified')
+            await member.add_roles(verifiedrole)
+
+            em=discord.Embed(title=f"Hi{member.name}, Welcome to CodeLush.", description="Thanks for joining this server, we are {len(list(member.guild.members))} members now!", color=discord.Color.green())
+
+            await channel.send(embed=em)
+            await member.send(embed=em)
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        channel = self.bot.get_channel(id = 783631786575659028)
+
+        em = discord.Embed(title = f"It seems like {member.name} just left us", description = f"We are only {len(list(member.guild.members))} now :sob:", color = discord.Color.red())
+
+        await channel.send(embed=em)
+
+def setup(bot):
+    bot.add_cog(Welcome(bot))
 
 #announcemnt command
 @client.command(aliases=["ann"])
 @commands.has_permissions(administrator=True, manage_messages=True, manage_roles=True, ban_members=True, kick_members=True)
-async def announce(ctx,*,message):
+async def announce(ctx, message):
 	anno = discord.Embed(tittle="ann", color=ctx.author.color)
 	anno.add_field(name="Announcement", value=message)
 	anno.set_footer(text=f"Announcement by {ctx.author.name}")
-	await ctx.channel.purge(limit=1)
 	await ctx.send(embed=anno)
-	await ctx.send("@everyone", delete_after=3)
+	await ctx.send('@everyone', delete_after=3) 
 
 client.run(os.environ['DISCORD_TOKEN'])
