@@ -376,8 +376,9 @@ async def poll(ctx, *, message):
   em.set_footer(text=ctx.author.name)
   channel = client.get_channel(785726236273672233)
   await channel.send(embed=em)
-  await message.add_reaction("✅")
-  await message.add_reaction("❎")
+  message_ = await channel.send(embed=em)
+  await message_.add_reaction("✅")
+  await message_.add_reaction("❎")
 
 
 client.run(os.environ['DISCORD_TOKEN'])
