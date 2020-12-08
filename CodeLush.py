@@ -231,42 +231,6 @@ async def kill(ctx, user):
             f'{user} is sucked into Minecraft. {user}, being a noob at the so called Real-Life Minecraft faces the Game Over screen.'
         )
 
-
-#welcome commands
-class Welcome(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-
-    @commands.Cog.listener()
-    async def on_member_join(self, member):
-        channel = self.bot.get_channel(id=783306605466746881)
-
-        if member.bot == True:
-            botrole = discord.utils.get(member.guild.roles, name="Members Bots")
-            await member.add_roles(botrole)
-
-        else:
-            verifiedrole = discord.utils.get(member.guild.roles, name='Verified')
-            await member.add_roles(verifiedrole)
-
-            em = discord.Embed(
-                title=f"Hi{member}, Welcome to CodeLush.", description="Thanks for joining this server", color=discord.Color.gree())
-
-            await channel.send(embed=em)
-            await member.send(embed=em)
-
-    @commands.Cog.listener()
-    async def on_member_remove(self, member):
-        channel = self.bot.get_channel(id=783306605466746881)
-
-        em = discord.Embed(title=f"It seems like {member.name} just left us", color=discord.Color.red())
-
-        await channel.send(embed=em)
-
-def setup(bot):
-    bot.add_cog(Welcome(bot))
-
-
 #announcemnt command
 @client.command(aliases=["ann"])
 @commands.has_permissions(administrator=True, manage_messages=True, manage_roles=True, ban_members=True, kick_members=True)
@@ -312,17 +276,18 @@ async def verify(ctx):
   verify.set_image(url="https://i.pinimg.com/originals/b9/7d/c2/b97dc288d71e7938c1ce8b7faacdc9ac.gif")
   await ctx.send(embed=verify)
   await ctx.author.send(embed=verify)
-  await ctx.author.remove_roles("Not Verified")
+  u = discord.utils.get(ctx.guild.roles, name='Not Verified')
+  await ctx.author.remove_roles(u)
   wel = discord.Embed(title="Welcome Message", description=f"Welcome {ctx.author.name} to our server!")
   wel.set_image(url='https://lh3.googleusercontent.com/proxy/K9VYJo1FV3p-5V5z_jzxBTYFZsvpgWH-ElkUwb0fIs9llGlM04OolU6nu4cO34Xitd1uH_plG4mSgG24IUFjgUq7x_8Z3B6UQF-9acp3jyMVklGYLw')
-  chl = client.get_channel(785751343541125160)
+  chl = client.get_channel(783298898194202665)
   await chl.send(embed=wel)
 
 #poll command
 @client.command()
 async def poll(ctx, *, message):
   em=discord.Embed(title="Poll", description=message,color=ctx.author.color)
-  em.set_footer(text=ctx.author.name)
+  em.set_footer(text=f"Poll by {ctx.author.name}")
   channel = client.get_channel(785726236273672233)
   message_ = await channel.send(embed=em)
   await message_.add_reaction("✅")
@@ -395,7 +360,7 @@ async def poll_error(ctx, error):
 
 #verify error
 @verify.error 
-async def verify_error(ctx):
+async def verify_error(ctx, error):
       em=discord.Embed(title="Error", description="You are already verified!", color=discord.Color.red())
       await ctx.send(embed=em, delete_after=5)
 
