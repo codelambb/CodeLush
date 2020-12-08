@@ -372,7 +372,7 @@ async def verify(ctx):
 
 @client.command()
 async def poll(ctx, *, message):
-  em=discord.Embed(title="Poll", description=f"{message},color=ctx.author.color")
+  em=discord.Embed(title="Poll", description=message,color=ctx.author.color)
   em.add_footer(text=ctx.author.name)
   await ctx.send(ctx.get_channel('785726236273672233'),embed=em)
   await message.add_reaction("✅")
