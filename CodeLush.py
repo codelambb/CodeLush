@@ -374,8 +374,7 @@ async def verify(ctx):
 async def poll(ctx, *, message):
   em=discord.Embed(title="Poll", description=message,color=ctx.author.color)
   em.set_footer(text=ctx.author.name)
-  channel = await ctx.get_channel(785726236273672233)
-  await channel.send(embed=em)
+  await client.send_message(discord.Object(id='785726236273672233'),embed=em)
   await message.add_reaction("✅")
   await message.add_reaction("❎")
 
