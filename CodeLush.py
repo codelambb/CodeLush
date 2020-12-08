@@ -33,6 +33,11 @@ async def change_status():
     await client.change_presence(activity=discord.Game(choice(status)))
 
 
+@client.event
+async def on_member_join(member):
+  notverifyrole=discord.utils.get_role(name="Not Verified")
+  await member.add_role(notverifyrole)
+
 #ping command
 @client.command()
 async def ping(ctx):
@@ -281,7 +286,7 @@ async def verify(ctx):
   wel = discord.Embed(title="Welcome Message", description=f"Welcome {ctx.author.name} to our server!")
   wel.set_image(url='https://lh3.googleusercontent.com/proxy/K9VYJo1FV3p-5V5z_jzxBTYFZsvpgWH-ElkUwb0fIs9llGlM04OolU6nu4cO34Xitd1uH_plG4mSgG24IUFjgUq7x_8Z3B6UQF-9acp3jyMVklGYLw')
   chl = client.get_channel(783298898194202665)
-  await chl.send(embed=wel)
+  e = await chl.send(embed=wel)
 
 #poll command
 @client.command()
