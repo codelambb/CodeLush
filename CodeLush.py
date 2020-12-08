@@ -80,14 +80,14 @@ async def _8ball(ctx, question):
 @client.command(aliases=['h'])
 async def help(ctx):
     helpEmbed = discord.Embed(tittle="Help Menu", color=ctx.author.color)
-    helpEmbed.set_author(name="Help Menu:\nPrefix = '!'")
+    helpEmbed.set_author(name="Help Menu:\nPrefix = '>'")
     helpEmbed.add_field(
         name="Moderation Command Menu",
-        value="```Type .modHelp to open that```",
+        value="```Type >modHelp to open that```",
         inline=True)
     helpEmbed.add_field(
         name="Miscellaneous Command Menu",
-        value="```Type .miscHelp to open that```",
+        value="```Type >miscHelp to open that```",
         inline=True)
 
     await ctx.send(embed=helpEmbed)
@@ -100,10 +100,10 @@ async def modHelp(ctx):
     mod.add_field(
         name="Moderation Command Menu",
         value=
-        "```!clear (ammount) : Deletes the specified ammount of messages from the channel```\n```!ban (user) (reasion) : Bans the specified user from the server```\n```!kick (user) (reason) : Kicks the specified user from the server```\n```mute (user) (reason) : Mutes the specified user from the server```\n```unmute (user) : Unmutes the specified user```\n"
+        "```>clear (ammount) : Deletes the specified ammount of messages from the channel```\n```>ban (user) (reasion) : Bans the specified user from the server```\n```>kick (user) (reason) : Kicks the specified user from the server```\n```>mute (user) (reason) : Mutes the specified user from the server```\n```>unmute (user) : Unmutes the specified user```\n```>announce (message) : Sends a announcemnt in sylish embed style```\n"
     )
     mod.set_footer(text="More moderation commands will be added soon")
-    await ctx.send(embed=modHelp)
+    await ctx.send(embed=mod)
 
 
 #miscHelp
@@ -113,9 +113,9 @@ async def miscHelp(ctx):
     misc.add_field(
         name="Miscellaneous Command Menu",
         value=
-        "```!ping : Tells the bot's latency```\n```!8ball (question) : Tells the answer of the asked question in a random yes/no answer```\n```!meme : Send a hot meme from reddit```\n```"
+        "```>ping : Tells the bot's latency```\n```>8ball (question) : Tells the answer of the asked question in a random yes/no answer```\n```>meme : Send a hot meme from reddit```\n```>userinfo (user) : Send information about mentioned user```\n```>define (querry) : Sends a definition of your querry from wikipedia```\n"
     )
-
+    ctx.send(embed=misc)
 
 #ban command
 @client.command(aliases=['b'])
@@ -277,11 +277,11 @@ async def announce(ctx,*,message):
 
 #define command
 @client.command()
-async def define(ctx,*,querry):
-  definition = wikipedia.summary(querry, sentence=3, chars=1000, auto_suggest=False, redirect=True)
-  de = discord.Embed(color=ctx.author.color)
-  de.add_field(name=querry, value=definition, inline=False)
-  await ctx.send(embed=de)
+async def define(ctx,*, ask):
+    definition = wikipedia.summary(ask, sentences=3, chars=1000, auto_suggest=False, redirect=True) 
+    search = discord.Embed(color=ctx.author.color)
+    search.add_field(name=ask, value=definition, inline=False)
+    await ctx.send(embed=search)
 
 #userinfo command
 @client.command(aliases=["ui"])
