@@ -304,7 +304,7 @@ async def userinfo(ctx, member: discord.Member):
 
 #verify command
 @client.command()
-@client.has_role("Not Verifed")
+@commands.has_role("Not Verifed")
 async def verify(ctx):
   verifiedrole = discord.utils.get(ctx.guild.roles, name='Verified')
   await ctx.author.add_roles(verifiedrole)
