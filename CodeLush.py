@@ -37,7 +37,7 @@ async def change_status():
 #auto role
 @client.event
 async def on_member_join(member):
-  notrole=discord.utils.get(member.guild.roles, name='Not Verified')
+  notrole=discord.utils.get(member.server.roles, name='Not Verified')
   await member.add_roles(notrole)
 
 #swear stopper
