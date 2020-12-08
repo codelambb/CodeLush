@@ -35,8 +35,8 @@ async def change_status():
 
 @client.event
 async def on_member_join(member):
-  notrole=discord.utils.get_role(name="Not Verified")
-  await member.add_role(notrole)
+  notrole=discord.utils.get(member.server.roles, name='Not Verified')
+  await client.add_role(member, notrole)
 
 #ping command
 @client.command()
