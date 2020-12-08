@@ -223,21 +223,15 @@ class Welcome(commands.Cog):
         channel = self.bot.get_channel(id=783306605466746881)
 
         if member.bot == True:
-            botrole = discord.utils.get(
-                member.guild.roles, name="Members Bots"
-            )
+            botrole = discord.utils.get(member.guild.roles, name="Members Bots")
             await member.add_roles(botrole)
 
         else:
-            verifiedrole = discord.utils.get(
-                member.guild.roles, name='Verified')
+            verifiedrole = discord.utils.get(member.guild.roles, name='Verified')
             await member.add_roles(verifiedrole)
 
             em = discord.Embed(
-                title=f"Hi{member.name}, Welcome to CodeLush.",
-                description=
-                "Thanks for joining this server, we are {len(list(member.guild.members))} members now!",
-                color=discord.Color.green())
+                title=f"Hi{member.name}, Welcome to CodeLush.", description="Thanks for joining this server", color=discord.Color.green())
 
             await channel.send(embed=em)
             await member.send(embed=em)
@@ -246,11 +240,7 @@ class Welcome(commands.Cog):
     async def on_member_remove(self, member):
         channel = self.bot.get_channel(id=783306605466746881)
 
-        em = discord.Embed(
-            title=f"It seems like {member.name} just left us",
-            description=
-            f"We are only {len(list(member.guild.members))} now :sob:",
-            color=discord.Color.red())
+        em = discord.Embed(title=f"It seems like {member.name} just left us", description=":sob:", color=discord.Color.red())
 
         await channel.send(embed=em)
 
@@ -266,7 +256,7 @@ def setup(bot):
     manage_roles=True,
     ban_members=True,
     kick_members=True)
-async def announce(ctx, message):
+async def announce(ctx,*,message):
     anno = discord.Embed(tittle="ann", color=ctx.author.color)
     anno.add_field(name="Announcement", value=message)
     anno.set_footer(text=f"Announcement by {ctx.author.name}")
