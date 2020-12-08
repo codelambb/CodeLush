@@ -189,11 +189,6 @@ async def mute(ctx, member: discord.Member, mute_time: int, *, reason=None):
     await ctx.send(f"{member.mention} was unmuted")
     await member.send(f"You were unmuted in **{ctx.guild}**")
 
-@client.event
-async def on_member_join(member): 
-    role = discord.utils.get(member.guild.roles, id='785746546150342666')
-    await member.add_roles(role)
-
 #unmute command
 @client.command()
 @commands.has_permissions(manage_roles=True, administrator=True)
