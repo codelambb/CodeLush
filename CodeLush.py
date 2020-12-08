@@ -21,7 +21,7 @@ status = ['Listening to -help', 'Make sure to read the rules!']
 
 client.remove_command("help")
 
-filter_words = ["fuck"]
+filter_words = ["fuck","bitch","pussy"]
 
 #ready
 @client.event
@@ -46,9 +46,9 @@ async def on_message(msg):
   for word in filter_words:
     if word in msg.content:
       await msg.delete()
-      await msg.channel.send(f"Swearing is not allowed in this server")
+      await msg.channel.send(f"{msg.author.mention}, Swearing is not allowed in this server")
 
-  await client.process_commands()
+  await client.process_commands(msg)
 
 #ping command
 @client.command()
