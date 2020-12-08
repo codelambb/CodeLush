@@ -21,18 +21,18 @@ status = ['Listening to >help', 'Make sure to read the rules!']
 
 client.remove_command("help")
 
-
+#ready
 @client.event
 async def on_ready():
     change_status.start()
     print('Bot is ready.')
 
-
+#status
 @tasks.loop(seconds=20)
 async def change_status():
     await client.change_presence(activity=discord.Game(choice(status)))
 
-
+#auto role
 @client.event
 async def on_member_join(member):
   notrole=discord.utils.get(member.server.roles, name='Not Verified')
@@ -301,6 +301,17 @@ async def poll(ctx, *, message):
   message_ = await channel.send(embed=em)
   await message_.add_reaction("✅")
   await message_.add_reaction("❎")
+
+#nqn event
+@client.event
+async def on_message(msg):
+  if ":" == msg.content[0] and ":" == msg.content["-1"]:
+    emoji_name = msg.content[1:-1]
+    for emoji in msg.guild.emojis:
+      if emoji_name == emoji.name:
+        await msg.channel.send(str(emoji))
+        await msg.delete()
+        break
 
 #all the errors
 
