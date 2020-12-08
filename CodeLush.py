@@ -4,6 +4,7 @@ import os
 from random import choice
 import aiohttp
 from random import randint
+import wikipedia
 import time
 import datetime
 import asyncio
@@ -131,6 +132,22 @@ async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
     await ctx.send(f'Kicked {member} from the server.')
     await member.kick(reason=reason)
 
+#unban command
+@client.command(aliases=['ub'])
+@commands.has_permissions(ban_members=True, administrator=True)
+async def unban(ctx, *, member):
+    banned_users = await ctx.guild.bans()
+    member_name, member_discriminator = member.split('#')
+
+    for ban_entry in banned_users:
+        user = ban_entry.user
+
+        if(user.name, user.discriminator) == (member_name,member_discriminator):
+            await ctx.guild.unban(user)
+            await ctx.send(f'Unbanned {user.name}#{user.discriminator}')
+            return
+
+    await ctx.send(member+" was not found")
 
 #mute command
 @client.command()
@@ -231,7 +248,7 @@ class Welcome(commands.Cog):
             await member.add_roles(verifiedrole)
 
             em = discord.Embed(
-                title=f"Hi{member.name}, Welcome to CodeLush.", description="Thanks for joining this server", color=discord.Color.green())
+                title=f"Hi{member}, Welcome to CodeLush.", description="Thanks for joining this server", color=discord.Color.gree())
 
             await channel.send(embed=em)
             await member.send(embed=em)
@@ -240,7 +257,7 @@ class Welcome(commands.Cog):
     async def on_member_remove(self, member):
         channel = self.bot.get_channel(id=783306605466746881)
 
-        em = discord.Embed(title=f"It seems like {member.name} just left us", description=":sob:", color=discord.Color.red())
+        em = discord.Embed(title=f"It seems like {member.name} just left us", color=discord.Color.red())
 
         await channel.send(embed=em)
 
@@ -250,12 +267,7 @@ def setup(bot):
 
 #announcemnt command
 @client.command(aliases=["ann"])
-@commands.has_permissions(
-    administrator=True,
-    manage_messages=True,
-    manage_roles=True,
-    ban_members=True,
-    kick_members=True)
+@commands.has_permissions(administrator=True, manage_messages=True, manage_roles=True, ban_members=True, kick_members=True)
 async def announce(ctx,*,message):
     anno = discord.Embed(tittle="ann", color=ctx.author.color)
     anno.add_field(name="Announcement", value=message)
@@ -263,5 +275,87 @@ async def announce(ctx,*,message):
     await ctx.send(embed=anno)
     await ctx.send('@everyone', delete_after=3)
 
+#define command
+@client.command()
+async def define(ctx,*,querry):
+  definition = wikipedia.summary(querry, sentence=3, chars=1000, auto_suggest=False, redirect=True)
+  de = discord.Embed(color=ctx.author.color)
+  de.add_field(name=querry, value=definition, inline=False)
+  await ctx.send(embed=de)
+
+#userinfo command
+@client.command(aliases=["ui"])
+async def userinfo(ctx, member: discord.Member):
+  
+  em=discord.Embed(color=member.color)
+
+  em.set_author(name=f"{member.name}'s info")
+  em.set_thumbnail(url=member.avatar_url)
+  em.set_footer(text=f"Requested by {ctx.author.name}")
+
+  em.add_field(name='Member Name', value=member.name)
+  em.add_field(name="Member name in guild", value=member.display_name)
+
+  em.add_field(name="Joined at:", value=member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"))
+
+  await ctx.send(embed=em)
+
+#all the errors
+
+#clear error
+@clear.error
+async def clear_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+     em = discord.Embed(title = "Error", description = "Either you have used the command incorrecly or you dont have permission to use this command.", color = discord.Color.red())
+     await ctx.send(embed=em, delete_after=5)
+    
+
+#8ball error
+@_8ball.error
+async def _8ball_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+     em = discord.Embed(title = "Error", description = "8ball didnt gave an answer cause you didnt even ask a question idiot", color = discord.Color.red())
+     await ctx.send(embed=em, delete_after=5)
+
+
+#ban error
+@ban.error
+async def ban_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+     em = discord.Embed(title = "Error", description = "Either you have used the command incorrecly or you dont have permission to use this command.", color = discord.Color.red())
+     await ctx.send(embed=em, delete_after=5)
+
+#kick error
+@kick.error
+async def kick_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+     em = discord.Embed(title = "Error", description = "Either you have used the command incorrecly or you dont have permission to use this command.", color = discord.Color.red())
+     await ctx.send(embed=em, delete_after=5)
+
+#unban error
+@unban.error
+async def unban_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+
+        em=discord.Embed(title="Error", description="Either you have used the command incorrecly or you dont have permission to use this command or that user is not banned at this server", color=discord.Color.red())
+
+        await ctx.send(embed=em, delete_after=5)
+        
+
+#userinfo error
+@userinfo.error
+async def userinfo_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+
+        em = discord.Embed(title = "Error", description = "Please pass all required arguments", color = discord.Color.red())
+
+        await ctx.send(embed=em, delete_after=5)
+
+#define error
+@define.error 
+async def define_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        em=discord.Embed(title="Error", description="Either you have used the command incorrecly or wikipedia cant find the definitation of that", color=discord.Color.red())
+        await ctx.send(embed=em, delete_after=5)
 
 client.run(os.environ['DISCORD_TOKEN'])
