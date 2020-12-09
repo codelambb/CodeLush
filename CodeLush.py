@@ -39,6 +39,16 @@ async def on_member_join(member):
   notrole=discord.utils.get(member.guild.roles, name='Not Verified')
   await member.add_roles(notrole)
 
+#goodbye event
+@client.event
+async def on_member_remove(member):
+
+  em=discord.Embed(title="Goodbye",description=f"Seems like {member.name} left us. :sob:", color=discord.Color.red())
+  
+  em.set_image(url="https://i.gifer.com/5FD0.gif")
+
+  await client.channel.send(id="783298898194202665", embed=em)
+
 #swear stopper
 @client.event
 async def on_message(msg):
@@ -291,10 +301,23 @@ async def verify(ctx):
   await ctx.author.send(embed=verify)
   u = discord.utils.get(ctx.guild.roles, name='Not Verified')
   await ctx.author.remove_roles(u)
-  wel = discord.Embed(title="Welcome Message", description=f"Welcome {ctx.author.name} to our server!")
+  wel = discord.Embed(title="Welcome", description=f"Welcome {ctx.author.name} to our server!")
   wel.set_image(url='https://i.pinimg.com/originals/b9/7d/c2/b97dc288d71e7938c1ce8b7faacdc9ac.gif')
   chl = client.get_channel(783298898194202665)
   e = await chl.send(embed=wel)
+
+@client.command(aliases=['si'])
+async def serverinfo(ctx):
+  guild=ctx.guild
+
+  em=discord.Embed(title=f"{guild.name} info", color=ctx.author.color)
+  em.set_thumbnail(url=guild.icon)
+  em.set_footer(text=f'Requested by {ctx.author.name}')
+  em.add_field(name='Total members', value=f"{guild.member_count}")
+  em.add_field(name="Owner", value=f"{guild.owner.name}")
+  em.add_field(name="Server created on:", value=guild.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"))
+
+  await ctx.send(embed=em)
 
 #suggest command
 @client.command()
@@ -309,7 +332,8 @@ async def suggest(ctx, *, message):
 #youtube command
 @client.command()
 async def ytsearch(ctx,*,search):
-  await ctx.send(f"Results of searching {search}....\nLink -----> [Click Here!](https://www.youtube.com/results?search_query=test)")
+  em = discord.Embed(title=f"Results of searching {search}....", description=f"https://www.youtube.com/results?search_query={search}")
+  await ctx.send(embed=em)
 
 #all the errors
 
