@@ -53,7 +53,7 @@ async def on_raw_reaction_add(payload):
 async def on_raw_reaction_remove(payload):
     for role, msg, emoji in client.reaction_roles:
         if msg.id == payload.message_id and emoji == payload.emoji.name:
-            await client.get_guild(payload.guild.id).get_member(payload.member_id).remove_roles(role)
+            await client.get_guild(payload.guild_id).get_member(payload.member_id).remove_roles(role)
 
 #reaction role command
 @client.command()
@@ -73,7 +73,9 @@ async def on_member_remove(member):
   
   em.set_image(url="https://i.gifer.com/5FD0.gif")
 
-  await client.channel.send(id="783298898194202665", embed=em)
+  channel = client.get_channel(783298898194202665)
+
+  await channel.send(id="783298898194202665", embed=em)
 
 #swear stopper
 @client.event
@@ -330,7 +332,7 @@ async def verify(ctx):
   wel = discord.Embed(title="Welcome", description=f"Welcome {ctx.author.name} to our server!")
   wel.set_image(url='https://i.pinimg.com/originals/b9/7d/c2/b97dc288d71e7938c1ce8b7faacdc9ac.gif')
   chl = client.get_channel(783298898194202665)
-  e = await chl.send(embed=wel)
+  await chl.send(embed=wel)
 
 @client.command(aliases=['si'])
 async def serverinfo(ctx):
