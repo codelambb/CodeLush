@@ -352,38 +352,32 @@ async def _8ball_error(ctx, error):
      await ctx.send(embed=em, delete_after=5)
 
 @client.event
-async def on_reaction_add(reaction, member):
-  channel = reaction.message.channel.id
-  if channel == 786076817970692106:
-    if reaction.emoji == "🛸":
-      c=discord.utils.get(member.guild.roles, name="C++")
-      cbeg=discord.utils.get(member.guild.roles, name="C++ (Beginner)")
-      await member.add_roles(c,cbeg)
+async def on_raw_reaction_add(payload):
+  message_id = payload.guild_id
+  if message_id = 786089505379581952:
+    guild_id = payload.guild_id
+    guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
 
-    if reaction.emoji == "👌":
-      py=discord.utils.get(member.guild.roles, name="Python")
-      pybeg=discord.utils.get(member.guild.roles, name="Python (Beginner)")
-      await member.add_roles(py, pybeg)
+    if payload.emoji.name == "python":
+      role = discord.utils.get(guild.roles, name="C++")
+      role2 = discord.utils.get(guild.roles, name="C++ (Beginner)")
+    else:
+      role = discord.utils.get(guild.roles, name=payload.emoji.name)
 
-    if reaction.emoji == "😁":
-      java=discord.utils.get(member.guild.roles, name="Java")
-      javabeg=discord.utils.get(member.guild.roles, name="Java (Beginner)")
-      await member.add_roles(java, javabeg)
+    if role is None:
+      member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
+      if member is not None:
+        await member.add_roles(role)
+        await member.add_roles(role2)
+        print
+      else:
+        print("Member not found")
+    else:
+      print("Role not found.")
 
-    if reaction.emoji == "4️⃣":
-      html=discord.utils.get(member.guild.roles, name="HTML")
-      htmlbeg=discord.utils.get(member.guild.roles, name='HTML (Beginner)')
-      await member.add_roles(html, htmlbeg)
-
-    if reaction.emoji == "5️⃣":
-      c=discord.utils.get(member.guild.roles, name="C#")
-      cbeg=discord.utils.get(member.guild.roles, name="C# (Beginner)")
-      await member.add_roles(c, cbeg)
-
-    if reaction.emoji == "6️⃣":
-      rb=discord.utils.get(member.guild.roles, name="Ruby")
-      rbbeg=discord.utils.get(member.guild.roles, name="Ruby (Beginner)")
-      await member.add_roles(rb, rbbeg)
+@client.event
+async def on_raw_reaction_remove(payload):
+  pass
       
 #ban error
 @ban.error
