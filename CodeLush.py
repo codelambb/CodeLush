@@ -42,15 +42,14 @@ async def on_member_join(member):
   await member.add_roles(notrole)
 
 #reaction roles
-@client.event
-async def on_reaction_add(reaction, user):
-    Channel = client.get_channel(786076817970692106)
-    if reaction.message.channel.id != Channel:
-        return
-    if reaction.emoji == "🏃":
-      Role = discord.utils.get(user.server.roles, name="C++")
-      cppbeg = discord.utils.get(user.server.roles, name="C++ (Beginner)")
-      await user.add_roles(Role, cppbeg)
+@client.event()
+async def on_reaction_add(reaction, member : discord.Member):
+  ChID = '786076817970692106'
+  if reaction.message.channel.id != ChID:
+    return
+  if reaction.emoji == "🏃":
+    cpp = discord.utils.get(member.server.roles, name="C++")
+    await client.add_roles(cpp)
 
 #goodbye event
 @client.event
