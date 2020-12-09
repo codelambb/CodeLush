@@ -41,29 +41,16 @@ async def on_member_join(member):
   notrole=discord.utils.get(member.guild.roles, name='Not Verified')
   await member.add_roles(notrole)
 
-#reaction roles adder
+#reaction roles
 @client.event
-async def on_raw_reaction_add(payload):
-    for role, msg, emoji in client.reaction_roles:
-        if msg.id == payload.message_id and emoji == payload.emoji.name:
-            await payload.member.add_roles(role)
-
-#reaction roles remover
-@client.event
-async def on_raw_reaction_remove(payload):
-    for role, msg, emoji in client.reaction_roles:
-        if msg.id == payload.message_id and emoji == payload.emoji.name:
-            await client.get_guild(payload.guild_id).get_member(payload.user_id).remove_roles(role)
-
-#reaction role command
-@client.command()
-async def set_reaction(ctx, role: discord.Role=None, msg: discord.Message=None, emoji=None):
-    if role != None and msg != None and emoji != None:
-        await msg.add_reaction(emoji)
-        client.reaction_roles.append((role, msg, emoji.encode("utf-8")))
-
-    else:
-        await ctx.send("Invalid arguments.")
+async def on_reaction_add(reaction, user):
+    Channel = client.get_channel(786076817970692106)
+    if reaction.message.channel.id != Channel:
+        return
+    if reaction.emoji == "🏃":
+      Role = discord.utils.get(user.server.roles, name="C++")
+      cppbeg = discord.utils.get(user.server.roles, name="C++ (Beginner)")
+      await user.add_roles(Role, cppbeg)
 
 #goodbye event
 @client.event
