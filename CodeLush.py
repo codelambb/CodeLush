@@ -39,9 +39,9 @@ async def on_member_join(member):
   notrole=discord.utils.get(member.guild.roles, name='Not Verified')
   await member.add_roles(notrole)
 
-ChID = '786076817970692106'
-msgid = '786277256276213760'
-guild = client.get_guild("782936584352956436")
+ChID = 786076817970692106
+msgid = 786277256276213760
+guild = client.get_guild(782936584352956436)
 
 #reaction roles
 @client.event
