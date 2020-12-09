@@ -311,7 +311,6 @@ async def serverinfo(ctx):
   guild=ctx.guild
 
   em=discord.Embed(title=f"{guild.name} info", color=ctx.author.color)
-  em.set_thumbnail(url=guild.icon)
   em.set_footer(text=f'Requested by {ctx.author.name}')
   em.add_field(name='Total members', value=f"{guild.member_count}")
   em.add_field(name="Owner", value=f"{guild.owner.name}")
