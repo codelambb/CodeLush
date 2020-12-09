@@ -359,8 +359,7 @@ async def on_raw_reaction_add(payload):
     guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
 
     if payload.emoji.name == "python":
-      role = discord.utils.get(guild.roles, name="C++")
-      role2 = discord.utils.get(guild.roles, name="C++ (Beginner)")
+      role = discord.utils.get(guild.roles, name="Python")
     else:
       role = discord.utils.get(guild.roles, name=payload.emoji.name)
 
@@ -368,8 +367,7 @@ async def on_raw_reaction_add(payload):
       member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
       if member is not None:
         await member.add_roles(role)
-        await member.add_roles(role2)
-        print
+        print("done")
       else:
         print("Member not found")
     else:
