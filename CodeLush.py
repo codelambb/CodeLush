@@ -56,7 +56,7 @@ async def on_raw_reaction_remove(payload):
             await client.get_guild(payload.guild.id).get_member(payload.member_id).remove_roles(role)
 
 #reaction role command
-@client.command
+@client.command()
 async def set_reaction(ctx, role: discord.Role=None, msg: discord.Message=None, emoji=None):
     if role != None and msg != None and emoji != None:
         await msg.add_reaction(emoji)
