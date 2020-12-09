@@ -26,6 +26,8 @@ filter_words = ["fuck","bitch","pussy"]
 async def on_ready():
     change_status.start()
     print('Bot is ready.')
+
+    client.reaction_roles = []
     
 #status
 @tasks.loop(seconds=20)
@@ -38,6 +40,30 @@ async def on_member_join(member):
   print("Someone joined")
   notrole=discord.utils.get(member.guild.roles, name='Not Verified')
   await member.add_roles(notrole)
+
+#reaction roles adder
+@client.event
+async def on_raw_reaction_add(payload):
+    for role, msg, emoji in client.reaction_roles:
+        if msg.id == payload.message_id and emoji == payload.emoji.name:
+            await payload.member.add_roles(role)
+
+#reaction roles remover
+@client.event
+async def on_raw_reaction_remove(payload):
+    for role, msg, emoji in client.reaction_roles:
+        if msg.id == payload.message_id and emoji == payload.emoji.name:
+            await client.get_guild(payload.guild.id).get_member(payload.member_id).remove_roles(role)
+
+#reaction role command
+@client.command
+async def set_reaction(ctx, role: discord.Role=None, msg: discord.Message=None, emoji=None):
+    if role != None and msg != None and emoji != None:
+        await msg.add_reaction(emoji)
+        client.reaction_roles.append((role, msg, emoji))
+
+    else:
+        await ctx.send("Invalid arguments.")
 
 #goodbye event
 @client.event
@@ -350,30 +376,6 @@ async def _8ball_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
      em = discord.Embed(title = "Error", description = "8ball didnt gave an answer cause you didnt even ask a question idiot", color = discord.Color.red())
      await ctx.send(embed=em, delete_after=5)
-
-@client.event
-async def on_raw_reaction_add(payload):
-  message_id = payload.message_id
-  if message_id == 786089505379581952:
-    guild_id = payload.guild_id
-    guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
-
-    if payload.emoji.name == "py":
-      role = discord.utils.get(guild.roles, name="Python")
-
-    if role is None:
-      member = discord.utils.find(lambda m : m.id == payload.user_id, guild.members)
-      if member is not None:
-        await member.add_roles(role)
-        print("Done!")
-      else:
-        print("Member not found")
-    else:
-      print("Role not found.")
-
-@client.event
-async def on_raw_reaction_remove(payload):
-  pass
       
 #ban error
 @ban.error
