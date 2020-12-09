@@ -353,7 +353,7 @@ async def _8ball_error(ctx, error):
 
 @client.event
 async def on_raw_reaction_add(payload):
-  message_id = payload.guild_id
+  message_id = payload.message_id
   if message_id = 786089505379581952:
     guild_id = payload.guild_id
     guild = discord.utils.find(lambda g : g.id == guild_id, client.guilds)
