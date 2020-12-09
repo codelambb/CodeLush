@@ -1,4 +1,5 @@
 import discord
+import aiofiles
 from discord.ext import commands, tasks
 import os
 from random import choice
@@ -29,6 +30,16 @@ async def on_ready():
 
     client.reaction_roles = []
     
+    for file in ["reaction_roles.txt"]:
+        async with aiofiles.open(file, mode="a") as temp:
+            pass
+
+    async with aiofiles.open("reaction_roles.txt", mode="r") as file:
+        lines = await file.readlines()
+        for line in lines:
+            data = line.split(" ")
+            client.reaction_roles.append((int(data[0]), int(data[1]), data[2].strip("\n")))
+
 #status
 @tasks.loop(seconds=20)
 async def change_status():
@@ -44,23 +55,30 @@ async def on_member_join(member):
 #reaction roles adder
 @client.event
 async def on_raw_reaction_add(payload):
-    for role, msg, emoji in client.reaction_roles:
-        if msg.id == payload.message_id and emoji == payload.emoji.name:
-            await payload.member.add_roles(role)
+    for role_id, msg_id, emoji in client.reaction_roles:
+        if msg_id == payload.message_id and emoji == str(payload.emoji.name.encode("utf-8")):
+            await payload.member.add_roles(client.get_guild(payload.guild_id).get_role(role_id))
 
 #reaction roles remover
 @client.event
 async def on_raw_reaction_remove(payload):
-    for role, msg, emoji in client.reaction_roles:
-        if msg.id == payload.message_id and emoji == payload.emoji.name:
-            await client.get_guild(payload.guild_id).get_member(payload.member_id).remove_roles(role)
+    for role_id, msg_id, emoji in client.reaction_roles:
+        if msg_id == payload.message_id and emoji == str(payload.emoji.name.encode("utf-8")):
+            guild = client.get_guild(payload.guild_id)
+            await guild.get_member(payload.user_id).remove_roles(guild.get_role(role_id))
 
 #reaction role command
 @client.command()
 async def set_reaction(ctx, role: discord.Role=None, msg: discord.Message=None, emoji=None):
     if role != None and msg != None and emoji != None:
         await msg.add_reaction(emoji)
-        client.reaction_roles.append((role, msg, emoji))
+        client.reaction_roles.append((role.id, msg.id, str(emoji.encode("utf-8"))))
+
+        async with aiofiles.open("reaction_roles.txt", mode="a") as file:
+            emoji_utf = emoji.encode("utf-8")
+            await file.write(f"{role.id} {msg.id} {emoji_utf}\n")
+
+        await ctx.channel.send("The reaction has been set.")
 
     else:
         await ctx.send("Invalid arguments.")
