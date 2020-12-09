@@ -351,7 +351,40 @@ async def _8ball_error(ctx, error):
      em = discord.Embed(title = "Error", description = "8ball didnt gave an answer cause you didnt even ask a question idiot", color = discord.Color.red())
      await ctx.send(embed=em, delete_after=5)
 
+@client.event
+async def on_reaction_add(reaction, member):
+  channel = reaction.message.channel
+  if channel == client.get_channel(786076817970692106):
+    if reaction.emoji == "🛸":
+      c=discord.utils.get(member.guild.roles, name="C++")
+      cbeg=discord.utils.get(member.guild.roles, name="C++ (Beginner)")
+      await member.add_roles(c,cbeg)
 
+    if reaction.emoji == "👌":
+      py=discord.utils.get(member.guild.roles, name="Python")
+      pybeg=discord.utils.get(member.guild.roles, name="Python (Beginner)")
+      await member.add_roles(py, pybeg)
+
+    if reaction.emoji == "😁":
+      java=discord.utils.get(member.guild.roles, name="Java")
+      javabeg=discord.utils.get(member.guild.roles, name="Java (Beginner)")
+      await member.add_roles(java, javabeg)
+
+    if reaction.emoji == "4️⃣":
+      html=discord.utils.get(member.guild.roles, name="HTML")
+      htmlbeg=discord.utils.get(member.guild.roles, name='HTML (Beginner)')
+      await member.add_roles(html, htmlbeg)
+
+    if reaction.emoji == "5️⃣":
+      c=discord.utils.get(member.guild.roles, name="C#")
+      cbeg=discord.utils.get(member.guild.roles, name="C# (Beginner)")
+      await member.add_roles(c, cbeg)
+
+    if reaction.emoji == "6️⃣":
+      rb=discord.utils.get(member.guild.roles, name="Ruby")
+      rbbeg=discord.utils.get(member.guild.roles, name="Ruby (Beginner)")
+      await member.add_roles(rb, rbbeg)
+      
 #ban error
 @ban.error
 async def ban_error(ctx, error):
