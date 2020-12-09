@@ -26,8 +26,6 @@ filter_words = ["fuck","bitch","pussy"]
 async def on_ready():
     change_status.start()
     print('Bot is ready.')
-
-    client.reaction_roles = []
     
 #status
 @tasks.loop(seconds=20)
@@ -41,16 +39,17 @@ async def on_member_join(member):
   notrole=discord.utils.get(member.guild.roles, name='Not Verified')
   await member.add_roles(notrole)
 
+ChID = '786076817970692106'
+msgid = '786277256276213760'
+guild = client.get_guild("782936584352956436")
+
 #reaction roles
 @client.event
-async def on_reaction_add(reaction, member : discord.Member):
-  ChID = '786076817970692106'
-  if reaction.message.channel.id != ChID:
-    return
-  if reaction.message.channel.id == ChID:
-    if reaction.emoji == "🏃":
-        cpp = discord.utils.get(member.guild.roles, name="C++")
-        await member.add_roles(cpp)
+async def on_reaction_add(reaction):
+  if reaction.message.channel.id == ChID and reaction.message.id == msgid:
+    if reaction.emoji == "🇵":
+        pe = discord.utils.get(guild.roles,name="Python")
+        await client.add_roles(reaction.message.author,pe)
 
 #goodbye event
 @client.event
