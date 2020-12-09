@@ -353,8 +353,8 @@ async def _8ball_error(ctx, error):
 
 @client.event
 async def on_reaction_add(reaction, member):
-  channel = reaction.message.channel
-  if channel == client.get_channel(786076817970692106):
+  channel = reaction.message.channel.id
+  if channel == 786076817970692106:
     if reaction.emoji == "🛸":
       c=discord.utils.get(member.guild.roles, name="C++")
       cbeg=discord.utils.get(member.guild.roles, name="C++ (Beginner)")
