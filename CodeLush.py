@@ -35,21 +35,180 @@ async def change_status():
 #auto role
 @client.event
 async def on_member_join(member):
-  print("Someone joined")
   notrole=discord.utils.get(member.guild.roles, name='Not Verified')
   await member.add_roles(notrole)
 
-ChID = 786076817970692106
-msgid = 786277256276213760
-guild = client.get_guild(782936584352956436)
+#all roles command start
 
-#reaction roles
-@client.event
-async def on_reaction_add(reaction):
-  if reaction.message.channel.id == ChID and reaction.message.id == msgid:
-    if reaction.emoji == "😁":
-        pe = discord.utils.get(guild.roles,name="Python")
-        await client.add_roles(reaction.message.author,pe)
+#cpp add command
+@client.command
+async def add_cpp(ctx):
+    cp = discord.utils.get(ctx.guild.roles, name='C++')
+    cpbeg = discord.utils.get(ctx.guild.roles, name='C++(Beginner)')
+    await ctx.author.add_roles(cp,cpbeg)
+
+#cpp remove command
+@client.command
+async def remove_cpp(ctx):
+    cp = discord.utils.get(ctx.guild.roles, name='C++')
+    cpbeg = discord.utils.get(ctx.guild.roles, name='C++(Beginner)')
+    await ctx.author.remove_roles(cp,cpbeg)
+
+#c add command
+@client.command
+async def add_c(ctx):
+    ce = discord.utils.get(ctx.guild.roles, name='C')
+    cebeg = discord.utils.get(ctx.guild.roles, name='C(Beginner)')
+    await ctx.author.add_roles(ce,cebeg)
+
+#c remove command
+@client.command
+async def remove_c(ctx):
+    ce = discord.utils.get(ctx.guild.roles, name='C')
+    cebeg = discord.utils.get(ctx.guild.roles, name='C(Beginner)')
+    await ctx.author.remove_roles(ce,cebeg)
+
+#py add command
+@client.command
+async def add_py(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='Python')
+    pbeg = discord.utils.get(ctx.guild.roles, name='Python(Beginner)')
+    await ctx.author.add_roles(p,pbeg)
+
+#py remove command
+@client.command
+async def remove_py(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='Python')
+    pbeg = discord.utils.get(ctx.guild.roles, name='Python(Beginner)')
+    await ctx.author.remove_roles(p,pbeg)
+
+#ruby add command
+@client.command
+async def add_ruby(ctx):
+    r = discord.utils.get(ctx.guild.roles, name='Ruby')
+    rbeg = discord.utils.get(ctx.guild.roles, name='Ruby(Beginner)')
+    await ctx.author.add_roles(r,rbeg)
+
+#ruby remove command
+@client.command
+async def remove_ruby(ctx):
+    r = discord.utils.get(ctx.guild.roles, name='Ruby')
+    rbeg = discord.utils.get(ctx.guild.roles, name='Ruby(Beginner)')
+    await ctx.author.remove_roles(r,rbeg)
+
+#c# add command
+@client.command
+async def add_chash(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='C#')
+    pbeg = discord.utils.get(ctx.guild.roles, name='C#(Beginner)')
+    await ctx.author.add_roles(p,pbeg)
+
+#c# remove command
+@client.command
+async def remove_chash(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='C#')
+    pbeg = discord.utils.get(ctx.guild.roles, name='C#(Beginner)')
+    await ctx.author.remove_roles(p,pbeg)
+
+#PHP add command
+@client.command
+async def add_php(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='PHP')
+    pbeg = discord.utils.get(ctx.guild.roles, name='PHP(Beginner)')
+    await ctx.author.add_roles(p,pbeg)
+
+#PHP remove command
+@client.command
+async def remove_php(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='PHP')
+    pbeg = discord.utils.get(ctx.guild.roles, name='PHP(Beginner)')
+    await ctx.author.remove_roles(p,pbeg)
+
+#CSS add command
+@client.command
+async def add_css(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='CSS')
+    pbeg = discord.utils.get(ctx.guild.roles, name='CSS(Beginner)')
+    await ctx.author.add_roles(p,pbeg)
+
+#CSS remove command
+@client.command
+async def remove_css(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='CSS')
+    pbeg = discord.utils.get(ctx.guild.roles, name='CSS(Beginner)')
+    await ctx.author.remove_roles(p,pbeg)
+
+#Java add command
+@client.command
+async def add_java(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='Java')
+    pbeg = discord.utils.get(ctx.guild.roles, name='Java(Beginner)')
+    await ctx.author.add_roles(p,pbeg)
+
+#Java remove command
+@client.command
+async def remove_java(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='Java')
+    pbeg = discord.utils.get(ctx.guild.roles, name='Java(Beginner)')
+    await ctx.author.remove_roles(p,pbeg)
+
+#Node.Js add command
+@client.command
+async def add_node(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='Node.Js')
+    pbeg = discord.utils.get(ctx.guild.roles, name='Node.Js(Beginner)')
+    await ctx.author.add_roles(p,pbeg)
+
+#Node.Js remove command
+@client.command
+async def remove_node(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='Node.Js')
+    pbeg = discord.utils.get(ctx.guild.roles, name='Node.Js(Beginner)')
+    await ctx.author.remove_roles(p,pbeg)
+
+#Golang add command
+@client.command
+async def add_golang(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='Golang')
+    pbeg = discord.utils.get(ctx.guild.roles, name='Golang(Beginner)')
+    await ctx.author.add_roles(p,pbeg)
+
+#Golang remove command
+@client.command
+async def remove_golang(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='Golang')
+    pbeg = discord.utils.get(ctx.guild.roles, name='Golang(Beginner)')
+    await ctx.author.remove_roles(p,pbeg)
+
+#SQL add command
+@client.command
+async def add_sql(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='SQL')
+    pbeg = discord.utils.get(ctx.guild.roles, name='SQL(Beginner)')
+    await ctx.author.add_roles(p,pbeg)
+
+#py remove command
+@client.command
+async def remove_sql(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='SQL')
+    pbeg = discord.utils.get(ctx.guild.roles, name='SQL(Beginner)')
+    await ctx.author.remove_roles(p,pbeg)
+
+#HTML add command
+@client.command
+async def add_html(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='HTML')
+    pbeg = discord.utils.get(ctx.guild.roles, name='HTML(Beginner)')
+    await ctx.author.add_roles(p,pbeg)
+
+#HTML remove command
+@client.command
+async def remove_html(ctx):
+    p = discord.utils.get(ctx.guild.roles, name='HTML')
+    pbeg = discord.utils.get(ctx.guild.roles, name='HTML(Beginner)')
+    await ctx.author.remove_roles(p,pbeg)
+
+#roles command end
 
 #goodbye event
 @client.event
