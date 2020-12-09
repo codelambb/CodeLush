@@ -47,7 +47,7 @@ guild = client.get_guild(782936584352956436)
 @client.event
 async def on_reaction_add(reaction):
   if reaction.message.channel.id == ChID and reaction.message.id == msgid:
-    if reaction.emoji == "🇵":
+    if reaction.emoji == "😁":
         pe = discord.utils.get(guild.roles,name="Python")
         await client.add_roles(reaction.message.author,pe)
 
