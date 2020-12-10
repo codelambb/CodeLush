@@ -58,7 +58,7 @@ async def remove_cpp(ctx):
     await ctx.author.add_roles(cp)
     await ctx.author.add_roles(cpbeg)
     await ctx.channel.purge(limit=1) 
-    await ctx.author.send(f'You have been given the required roles!')
+    await ctx.author.send('You have been given the required roles!')
 
 #c add command
 @client.command()
