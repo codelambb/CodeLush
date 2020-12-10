@@ -38,30 +38,6 @@ async def on_member_join(member):
   notrole=discord.utils.get(member.guild.roles, name='Not Verified')
   await member.add_roles(notrole)
 
-#all roles command start
-
-#cpp add command
-@client.command()
-async def add_cpp(ctx):
-    cp = discord.utils.get(ctx.guild.roles, name='C++')
-    cpbeg = discord.utils.get(ctx.guild.roles, name='C++ (Beginner)')
-    await ctx.author.add_roles(cp)
-    await ctx.author.add_roles(cpbeg)
-    await ctx.channel.purge(limit=1) 
-    await ctx.author.send(f'You have been given the required roles!')
-
-#cpp remove command
-@client.command()
-async def remove_cpp(ctx):
-    cp = discord.utils.get(ctx.guild.roles, name='C++')
-    cpbeg = discord.utils.get(ctx.guild.roles, name='C++ (Beginner)')
-    await ctx.author.remove_roles(cp)
-    await ctx.author.remove_roles(cpbeg)
-    await ctx.channel.purge(limit=1) 
-    await ctx.author.send(f'You have been given the required roles!')
-
-#roles command end
-
 #goodbye event
 @client.event
 async def on_member_remove(member):
@@ -426,8 +402,8 @@ async def poll_error(ctx, error):
 #verify error
 @verify.error 
 async def verify_error(ctx, error):
-    em=discord.Embed(title="Error", description="You are already verified!", color=discord.Color.red())
-    await ctx.send(embed=em, delete_after=5)
+      em=discord.Embed(title="Error", description="You are already verified!", color=discord.Color.red())
+      await ctx.send(embed=em, delete_after=5)
 
 #youtube error
 @ytsearch.error
