@@ -47,7 +47,7 @@ async def add_cpp(ctx):
     cpbeg = discord.utils.get(ctx.guild.roles, name='C++(Beginner)')
     await ctx.author.add_roles(cp)
     await ctx.author.add_roles(cpbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #cpp remove command
@@ -57,6 +57,9 @@ async def remove_cpp(ctx):
     cpbeg = discord.utils.get(ctx.guild.roles, name='C++(Beginner)')
     await ctx.author.add_roles(cp)
     await ctx.author.add_roles(cpbeg)
+    await ctx.channel.purge(limit=1) 
+    await ctx.author.send(f'You have been given the required roles!')
+
 #c add command
 @client.command()
 async def add_c(ctx):
@@ -64,7 +67,7 @@ async def add_c(ctx):
     cebeg = discord.utils.get(ctx.guild.roles, name='C(Beginner)')
     await ctx.author.add_roles(ce)
     await ctx.author.add_roles(cebeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #c remove command
@@ -74,7 +77,7 @@ async def remove_c(ctx):
     cebeg = discord.utils.get(ctx.guild.roles, name='C(Beginner)')
     await ctx.author.add_roles(ce)
     await ctx.author.add_roles(cebeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #py add command
@@ -84,7 +87,7 @@ async def add_py(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='Python(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #py remove command
@@ -94,7 +97,7 @@ async def remove_py(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='Python(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #ruby add command
@@ -104,7 +107,7 @@ async def add_ruby(ctx):
     rbeg = discord.utils.get(ctx.guild.roles, name='Ruby(Beginner)')
     await ctx.author.add_roles(r)
     await ctx.author.add_roles(rbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #ruby remove command
@@ -114,7 +117,7 @@ async def remove_ruby(ctx):
     rbeg = discord.utils.get(ctx.guild.roles, name='Ruby(Beginner)')
     await ctx.author.add_roles(r)
     await ctx.author.add_roles(rbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #c# add command
@@ -124,7 +127,7 @@ async def add_chash(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='C#(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #c# remove command
@@ -134,7 +137,7 @@ async def remove_chash(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='C#(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #PHP add command
@@ -144,7 +147,7 @@ async def add_php(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='PHP(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #PHP remove command
@@ -154,7 +157,7 @@ async def remove_php(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='PHP(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #CSS add command
@@ -164,7 +167,7 @@ async def add_css(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='CSS(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #CSS remove command
@@ -174,7 +177,7 @@ async def remove_css(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='CSS(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #Java add command
@@ -184,7 +187,7 @@ async def add_java(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='Java(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
     
 #Java remove command
@@ -194,7 +197,7 @@ async def remove_java(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='Java(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #Node.Js add command
@@ -204,7 +207,7 @@ async def add_node(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='Node.Js(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #Node.Js remove command
@@ -214,7 +217,7 @@ async def remove_node(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='Node.Js(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #Golang add command
@@ -224,6 +227,8 @@ async def add_golang(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='Golang(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
+    await ctx.channel.purge(limit=1) 
+    await ctx.author.send(f'You have been given the required roles!')
 
 #Golang remove command
 @client.command()
@@ -232,7 +237,7 @@ async def remove_golang(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='Golang(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #SQL add command
@@ -242,16 +247,18 @@ async def add_sql(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='SQL(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
-#py remove command
+#SQL remove command
 @client.command()
 async def remove_sql(ctx):
     p = discord.utils.get(ctx.guild.roles, name='SQL')
     pbeg = discord.utils.get(ctx.guild.roles, name='SQL(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
+    await ctx.channel.purge(limit=1) 
+    await ctx.author.send(f'You have been given the required roles!')
 
 #HTML add command
 @client.command()
@@ -260,7 +267,7 @@ async def add_html(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='HTML(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #HTML remove command
@@ -270,7 +277,7 @@ async def remove_html(ctx):
     pbeg = discord.utils.get(ctx.guild.roles, name='HTML(Beginner)')
     await ctx.author.add_roles(p)
     await ctx.author.add_roles(pbeg)
-    await ctx.delete()
+    await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
 #roles command end
