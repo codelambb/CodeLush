@@ -162,46 +162,6 @@ async def remove_css(ctx):
     await ctx.channel.purge(limit=1) 
     await ctx.author.send(f'You have been given the required roles!')
 
-#add java command
-@client.command()
-async def add_java(ctx):
-    p = discord.utils.get(ctx.guild.roles, name='Java')
-    pbeg = discord.utils.get(ctx.guild.roles, name='Java (Beginner)')
-    await ctx.author.add_roles(p)
-    await ctx.author.add_roles(pbeg)
-    await ctx.channel.purge(limit=1) 
-    await ctx.author.send(f'You have been given the required roles!')
-
-#remove java command
-@client.command()
-async def remove_java(ctx):
-    p = discord.utils.get(ctx.guild.roles, name='Java')
-    pbeg = discord.utils.get(ctx.guild.roles, name='Java (Beginner)')
-    await ctx.author.remove_roles(p)
-    await ctx.author.remove_roles(pbeg)
-    await ctx.channel.purge(limit=1) 
-    await ctx.author.send(f'You have been given the required roles!')
-    
-#add node command   
-@client.command()
-async def add_node(ctx):
-    p = discord.utils.get(ctx.guild.roles, name='Node.Js')
-    pbeg = discord.utils.get(ctx.guild.roles, name='Node.Js (Beginner)')
-    await ctx.author.add_roles(p)
-    await ctx.author.add_roles(pbeg)
-    await ctx.channel.purge(limit=1) 
-    await ctx.author.send(f'You have been given the required roles!')
-
-#add node command   
-@client.command()
-async def remove_node(ctx):
-    p = discord.utils.get(ctx.guild.roles, name='Node.Js')
-    pbeg = discord.utils.get(ctx.guild.roles, name='Node.Js (Beginner)')
-    await ctx.author.remove_roles(p)
-    await ctx.author.remove_roles(pbeg)
-    await ctx.channel.purge(limit=1) 
-    await ctx.author.send(f'You have been given the required roles!')
-
 #Java add command
 @client.command()
 async def add_java(ctx):
@@ -668,8 +628,8 @@ async def poll_error(ctx, error):
 #verify error
 @verify.error 
 async def verify_error(ctx, error):
-      em=discord.Embed(title="Error", description="You are already verified!", color=discord.Color.red())
-      await ctx.send(embed=em, delete_after=5)
+    em=discord.Embed(title="Error", description="You are already verified!", color=discord.Color.red())
+    await ctx.send(embed=em, delete_after=5)
 
 #youtube error
 @ytsearch.error
