@@ -26,10 +26,6 @@ filter_words = ["fuck","bitch","pussy"]
 async def on_ready():
     change_status.start()
     print('Bot is ready.')
-    Channel = client.get_channel('786076817970692106')
-    Text= "React here!"
-    Moji = await client.send_message(Channel, Text)
-    await client.add_reaction(Moji, emoji='🏃')
     
 #status
 @tasks.loop(seconds=20)
@@ -42,15 +38,194 @@ async def on_member_join(member):
   notrole=discord.utils.get(member.guild.roles, name='Not Verified')
   await member.add_roles(notrole)
 
-#reaction roles
-@client.event
-async def on_reaction_add(reaction, user):
-    Channel = client.get_channel('786076817970692106')
-    if reaction.message.channel.id != Channel:
-        return
-    if reaction.emoji == "🏃":
-      Role = discord.utils.get(user.server.roles, name="Python")
-      await client.add_roles(user, Role)
+#all roles command start
+
+
+
+#cpp remove command
+@client.command()
+async def add_cpp(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='C++'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='C++ (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#c add command
+@client.command()
+async def remove_cpp(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='C'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='C (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#c remove command
+@client.command()
+async def add_c(ctx):
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='C'))
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='C (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#py add command
+@client.command()
+async def add_py(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Python'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Python (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#py remove command
+@client.command()
+async def remove_py(ctx):
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Python'))
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Python (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#ruby add command
+@client.command()
+async def add_ruby(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Ruby'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Ruby (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#ruby remove command
+@client.command()
+async def remove_ruby(ctx):
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Ruby'))
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Ruby (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#C# add command
+@client.command()
+async def chash_add(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='C#'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='C# (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#C# remove command
+@client.command()
+async def chash_remove(ctx):
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='C#'))
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='C# (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#PHP add command
+@client.command()
+async def add_php(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='PHP'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='PHP (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#PHP remove command
+@client.command()
+async def remove_php(ctx):
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='PHP'))
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='PHP (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#CSS add command
+@client.command()
+async def add_css(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='CSS'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='CSS (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#CSS remove command
+@client.command()
+async def remove_css(ctx):
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='CSS'))
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='CSS (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#Java add command
+@client.command()
+async def add_java(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Java'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Java (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+    
+#Java remove command
+@client.command()
+async def remove_java(ctx):
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Java'))
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Javva (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#Node.Js add command
+@client.command()
+async def add_node(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Node.Js'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Node.Js (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#Node.Js remove command
+@client.command()
+async def remove_node(ctx):
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Node.Js'))
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Node.Js (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#Golang add command
+@client.command()
+async def add_golang(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Golang'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Golang (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#Golang remove command
+@client.command()
+async def remove_golang(ctx):
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Golang'))
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='Golang (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#SQL add command
+@client.command()
+async def add_sql(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='SQL'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='SQL (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#SQL remove command
+@client.command()
+async def remove_sql(ctx):
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='SQL'))
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='SQL (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#HTML add command
+@client.command()
+async def add_html(ctx):
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='HTML'))
+    await client.add_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='HTML (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+
+#HTML remove command
+@client.command()
+async def remove_html(ctx):
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='HTML'))
+    await client.remove_roles(ctx.author,discord.utils.get(ctx.guild.roles, name='HTML (Beginner)'))
+    await ctx.author.send('You have been given the required roles!')
+    await ctx.message.delete()
+#roles command end
 
 #goodbye event
 @client.event
