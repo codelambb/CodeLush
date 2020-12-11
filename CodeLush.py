@@ -533,6 +533,7 @@ async def verify(ctx):
   chl = client.get_channel(783298898194202665)
   await chl.send(embed=wel)
 
+#server info command
 @client.command(aliases=['si'])
 async def serverinfo(ctx):
   guild=ctx.guild
